@@ -7,3 +7,10 @@ async def add_user(user_id, full_name, birth_date, phone_number):
         ON CONFLICT (user_id) DO NOTHING''',
         user_id, full_name, birth_date, phone_number
     )
+
+
+async def update_employee_status(user_id):
+    await db.execute(
+        '''UPDATE users SET is_employee = NOT is_employee WHERE user_id = $1''',
+        user_id
+    )

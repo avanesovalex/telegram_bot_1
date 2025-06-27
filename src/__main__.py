@@ -3,7 +3,7 @@ from aiogram import Dispatcher, Bot
 
 from src.config import config
 from src.database.db import db
-from src.handlers import registration
+from src.handlers import registration, admin
 from src.files import commands
 
 
@@ -11,6 +11,7 @@ bot = Bot(token=config.TOKEN)
 dp = Dispatcher()
 
 dp.include_router(registration.router)
+dp.include_router(admin.router)
 
 
 @dp.startup()
