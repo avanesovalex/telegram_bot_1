@@ -5,6 +5,7 @@ from src.config import config
 from src.database.db import db
 from src.handlers import registration, admin
 from src.files import commands
+from src.files.scheduler import setup_scheduler
 
 
 bot = Bot(token=config.TOKEN)
@@ -19,9 +20,16 @@ async def on_startup():
     await db.connect()
     await commands.set_commands(bot)
 
+    scheduler = await setup_scheduler(bot)
+    dp.workflow_data['scheduler'] = scheduler
+
 
 @dp.shutdown()
 async def on_shutdown():
+    scheduler = dp.workflow_data.get('scheduler')
+    if scheduler:
+        scheduler.shutdown()
+
     await db.close()
 
 

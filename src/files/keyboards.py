@@ -7,7 +7,7 @@ from src.database.repositories.admin import get_all_users, get_one_user
 
 get_phone_kb = ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text='Отправить номер телефона📞',
+        [KeyboardButton(text='📞Отправить номер телефона',
                         request_contact=True)]
     ],
     resize_keyboard=True,
@@ -16,7 +16,7 @@ get_phone_kb = ReplyKeyboardMarkup(
 
 admin_kb = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text='Добавить/Удалить сотрудников',
+        [InlineKeyboardButton(text='👥Добавить/Удалить сотрудников',
                               callback_data='users_page_0')]
     ]
 )
@@ -56,8 +56,15 @@ async def get_users_kb(page=0, users_per_page=5) -> InlineKeyboardBuilder:
 
     builder.row(*pagination_buttons)
 
-    # Добавляем кнопку "В меню"
+    # Добавляем кнопку "Завершить"
     builder.row(InlineKeyboardButton(text="Завершить",
                 callback_data="back_to_admin_kb"))
 
     return builder
+
+fill_request_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text='📝Заполнить заявку',
+                              callback_data='fill_request')]
+    ]
+)

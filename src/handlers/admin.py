@@ -17,9 +17,9 @@ async def admin_menu(message: Message):
 
 @router.callback_query(F.data == 'back_to_admin_kb')
 async def back_to_admin(callback: CallbackQuery):
-    await callback.message.delete()  # type: ignore
-    # type: ignore
-    await callback.message.answer('Выберите действие', reply_markup=admin_kb)
+    if callback.message != None:
+        await callback.message.delete()  # type: ignore
+        await callback.message.answer('Выберите действие', reply_markup=admin_kb)
 
 
 @router.callback_query(F.data.startswith('users_page_'))

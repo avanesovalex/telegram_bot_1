@@ -1,8 +1,9 @@
 from aiogram.types import BotCommand, BotCommandScopeChat
 from src.database.repositories.admin import get_all_admins
+from aiogram import Bot
 
 
-async def set_commands(bot):
+async def set_commands(bot: Bot):
     # Общие команды для всех пользователей
     user_commands = [
         BotCommand(command="start", description="Запуск бота"),

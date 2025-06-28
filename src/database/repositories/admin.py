@@ -9,6 +9,14 @@ async def get_all_admins():
     return [dict(admin) for admin in admins]
 
 
+async def get_all_employees():
+    employees = await db.fetch(
+        '''SELECT user_id FROM users WHERE is_employee = TRUE'''
+    )
+
+    return [dict(employee) for employee in employees]
+
+
 async def get_all_users():
     users = await db.fetch(
         '''SELECT user_id FROM users ORDER BY full_name'''
@@ -32,3 +40,12 @@ async def is_user_admin(user_id):
         '''SELECT is_admin FROM users WHERE user_id = $1''', user_id
     )
     return is_admin
+
+
+async def get_pending_employees():
+    employees = await db.fetch(
+        '''SELECT user_id, full_name FROM users
+        WHERE is_employee = true AND sent_request = false'''
+    )
+
+    return [dict(employee) for employee in employees]
